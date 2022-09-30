@@ -6,7 +6,7 @@ USE tcc ;
 -- tabela de endereço -- 
 CREATE TABLE address_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  type_adress VARCHAR(10) NOT NULL,
+  type_address VARCHAR(10) NOT NULL,
   address VARCHAR(255) NOT NULL,
   number_address INT NOT NULL,
   complement VARCHAR(100) NULL,
@@ -74,34 +74,41 @@ CREATE TABLE employee_tbl (
 
 
 -- tabela de  laboratórios --
-CREATE TABLE labs_tbl(
+CREATE TABLE Labs_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   fk_instruction INT NOT NULL,
   name_lab VARCHAR(45) NOT NULL,
-  type_lab VARCHAR(45) NOT NULL DEFAULT 'sala',
-  PRIMARY KEY (id),
-  CONSTRAINT fk_labs_tbl_instruction_tbl
-    FOREIGN KEY (fk_instruction)
-    REFERENCES instruction_tbl (id)
+  room_index VARCHAR(100) NOT NULL,
+  floor_lab VARCHAR(45) NOT NULL,
+  
+  PRIMARY KEY (`id`),
+  CONSTRAINT fk_Labs_tbl_Instituicao_tbl
+    FOREIGN KEY (`fk_instruction`)
+    REFERENCES Instruction_tbl (`id`)
 );
 
 
 -- tabela de patrimonios -- 
-CREATE TABLE fixedAssent_tbl (
+CREATE TABLE FixedAssent_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  assent_number INT NOT NULL UNIQUE,
-  serial_number VARCHAR(50) NOT NULL UNIQUE,
+  assent_number VARCHAR(6) NULL,
+  serial_number VARCHAR(50) NOT NULL,
   assent_name VARCHAR(45) NOT NULL,
   brand VARCHAR(45) NOT NULL,
   model VARCHAR(45) NOT NULL,
-  product_batch INT NOT NULL,
-  tax_invoice INT NOT NULL,
-  complement TEXT NOT NULL,
-  value_assent DOUBLE NOT NULL,
+  product_batch VARCHAR(6) NULL,
+  tax_invoice VARCHAR(6) NULL,
+  complement TEXT NULL,
+  value_assent DECIMAL(10,2) NULL,
   verify TINYINT NOT NULL,
   color VARCHAR(45) NOT NULL,
+  fk_labs INT NOT NULL,
   
-  PRIMARY KEY (id)
+  PRIMARY KEY (`id`),
+  
+  CONSTRAINT fk_FixedAssent_tbl_Labs_tbl
+    FOREIGN KEY (`fk_labs`)
+    REFERENCES Labs_tbl (`id`)
 );
 
 
@@ -166,14 +173,13 @@ CREATE TABLE schoolSubject_tbl (
 CREATE TABLE students_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   fk_user INT NOT NULL,
-  ra INT NOT NULL,
+  rm INT NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_alunos_tbl_usuarios_tbl
     FOREIGN KEY (fk_user)
     REFERENCES users_tbl (id)
 );
 
-ALTER TABLE students_tbl RENAME COLUMN ra TO rm; 
 
 
 -- tabela de agendamento de laboratório -- 
@@ -338,7 +344,7 @@ CREATE TABLE teachersHasDisciplene_tbl (
 
 
 -- tabela de itens  -- 
-CREATE TABLE stockItens_tbl (
+CREATE TABLE Itens_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   serial_number VARCHAR(20) NOT NULL UNIQUE,
   product_batch INT NOT NULL,
@@ -349,7 +355,7 @@ CREATE TABLE stockItens_tbl (
   
   PRIMARY KEY (id)
 );
-ALTER TABLE stockItens_tbl RENAME TO Itens_tbl;
+
 
 
 
@@ -367,7 +373,7 @@ CREATE TABLE itensInStock_tbl (
     
   CONSTRAINT fk_stock_tbl_has_ItensInStock_tbl_ItensInStock_tbl
     FOREIGN KEY (fk_item)
-    REFERENCES stockItens_tbl (id)
+    REFERENCES Itens_tbl (id)
 );
 
 
@@ -381,7 +387,7 @@ CREATE TABLE itensHasMaintananceSchedule_tbl (
   
   CONSTRAINT fk_itensInStock_tbl_has_maintananceSchedule_tbl
     FOREIGN KEY (fk_item)
-    REFERENCES stockItens_tbl (id),
+    REFERENCES Itens_tbl (id),
     
   -- CONSTRAINT fk_itensInStock_tbl_has_maintananceSchedule_tbl
     FOREIGN KEY (fk_schedule)
@@ -455,5 +461,3 @@ CREATE TABLE educationHubHasInstruction_tbl (
     FOREIGN KEY (fk_instruction)
     REFERENCES instruction_tbl (id)
 );
-
-
