@@ -1,6 +1,6 @@
 CREATE DATABASE tcc;
 
-USE tcc ;
+USE tcc;
 
 
 -- tabela de endereço -- 
@@ -37,7 +37,7 @@ CREATE TABLE Instruction_tbl (
 -- tabela de usuários -- 
 CREATE TABLE users_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  fk_corporate_name INT NOT NULL,
+  fk_id_corporate INT NOT NULL,
   fk_address INT NOT NULL,
   name_user VARCHAR(45) NOT NULL,
   last_name VARCHAR(45) NOT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE users_tbl (
   verify TINYINT NULL,
   
   PRIMARY KEY (id),
-  CONSTRAINT fk_users_tbl_instruction_tbl
-    FOREIGN KEY (fk_corporate_name)
-    REFERENCES instruction_tbl (id),
+  CONSTRAINT fk_id_corporate
+    FOREIGN KEY (fk_id_corporate)
+    REFERENCES instruction_tbl(id),
   
   CONSTRAINT fk_users_tbl_address_tbl
     FOREIGN KEY (fk_address)

@@ -7,6 +7,7 @@ SELECT * FROM fixedassent_tbl;
 SELECT * FROM address_tbl;
 
 SELECT * FROM instruction_tbl;
+SELECT * FROM users_tbl;
 
 SELECT * FROM labs_tbl;
 
