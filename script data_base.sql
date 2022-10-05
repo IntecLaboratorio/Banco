@@ -33,6 +33,11 @@ CREATE TABLE Instruction_tbl (
     REFERENCES address_tbl (`id`)
 );
 
+-- Tipo de usuário --
+CREATE TABLE typeUser_tbl(
+	id INT PRIMARY KEY auto_increment,
+    type_name VARCHAR(45) NOT NULL
+);
 
 -- tabela de usuários -- 
 CREATE TABLE users_tbl (
@@ -40,13 +45,13 @@ CREATE TABLE users_tbl (
   fk_id_corporate INT NOT NULL,
   fk_address INT NOT NULL,
   name_user VARCHAR(45) NOT NULL,
-  last_name VARCHAR(45) NOT NULL,
+  fk_typeUser INT NOT NULL,
   cpf VARCHAR(15) NOT NULL UNIQUE,
   rg VARCHAR(12) NOT NULL UNIQUE,
   phone VARCHAR(20) NOT NULL,
   email VARCHAR(45) NOT NULL UNIQUE,
   senha VARCHAR(45) NOT NULL,
-  verify TINYINT NULL,
+  verify TINYINT NOT NULL,
   
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
@@ -55,7 +60,11 @@ CREATE TABLE users_tbl (
   
   CONSTRAINT fk_users_tbl_address_tbl
     FOREIGN KEY (fk_address)
-    REFERENCES address_tbl (id)
+    REFERENCES address_tbl (id),
+    
+	CONSTRAINT fk_typeUser
+		FOREIGN KEY (fk_typeUser)
+		REFERENCES typeUser_tbl (id)
 );
 
 
@@ -86,7 +95,6 @@ CREATE TABLE Labs_tbl (
     FOREIGN KEY (`fk_instruction`)
     REFERENCES Instruction_tbl (`id`)
 );
-
 
 -- tabela de patrimonios -- 
 CREATE TABLE FixedAssent_tbl (

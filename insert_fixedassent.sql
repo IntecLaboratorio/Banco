@@ -15,3 +15,9 @@ INSERT INTO address_tbl (type_address, address, number_address, complement, neig
 VALUES (
 	"", "Rua Pam", 1002, "", "JD. São Marcos", "Itapecerica da Serra", "SP", 06267966
 );
+
+INSERT INTO typeUser_tbl (type_name)
+VALUES ("Coordenador"),
+	   ("Professor"),
+       ("Alunos")
+;
