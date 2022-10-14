@@ -39,6 +39,7 @@ CREATE TABLE typeUser_tbl(
     type_name VARCHAR(45) NOT NULL
 );
 
+
 -- tabela de usuários -- 
 CREATE TABLE users_tbl (
   id INT NOT NULL AUTO_INCREMENT,
@@ -72,13 +73,17 @@ CREATE TABLE users_tbl (
 CREATE TABLE employee_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   fk_user INT NOT NULL,
-  employee_role VARCHAR(45) NOT NULL,
-  rm VARCHAR(45) NOT NULL,
+  fk_typeUser INT NOT NULL,
+  rm VARCHAR(45) NOT NULL UNIQUE,
   PRIMARY KEY (`id`),
   
   CONSTRAINT fk_teachers_tbl_users_tbl
     FOREIGN KEY (`fk_user`)
-    REFERENCES users_tbl (`id`)
+    REFERENCES users_tbl (`id`),
+    
+	CONSTRAINT fk_typeUser_tbl
+		FOREIGN KEY (fk_typeUser)
+		REFERENCES typeUser_tbl (id)
 );
 
 
@@ -99,15 +104,15 @@ CREATE TABLE Labs_tbl (
 -- tabela de patrimonios -- 
 CREATE TABLE FixedAssent_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  assent_number VARCHAR(6) NULL,
+  assent_number VARCHAR(6),
   serial_number VARCHAR(50) NOT NULL,
   assent_name VARCHAR(45) NOT NULL,
-  brand VARCHAR(45) NOT NULL,
-  model VARCHAR(45) NOT NULL,
-  product_batch VARCHAR(6) NULL,
-  tax_invoice VARCHAR(6) NULL,
-  complement TEXT NULL,
-  value_assent DECIMAL(10,2) NULL,
+  brand VARCHAR(45),
+  model VARCHAR(45),
+  product_batch VARCHAR(6),
+  tax_invoice VARCHAR(6),
+  complement TEXT,
+  value_assent DECIMAL(10,2),
   verify TINYINT NOT NULL,
   color VARCHAR(45) NOT NULL,
   fk_labs INT NOT NULL,
@@ -286,8 +291,8 @@ CREATE TABLE maintananceRequerement_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   requerement_date DATE NOT NULL,
   observation TEXT NOT NULL,
-  fk_fixed_assent INT NOT NULL,
-  fk_teacher INT NOT NULL,
+  fk_fixed_assent VARCHAR(6),
+  fk_employee INT NOT NULL,
   
   PRIMARY KEY (id),
   
@@ -296,7 +301,7 @@ CREATE TABLE maintananceRequerement_tbl (
     REFERENCES fixedAssent_tbl (id),
     
   CONSTRAINT fk_maintananceRequerement_tbl_teachers_tbl
-    FOREIGN KEY (fk_teacher)
+    FOREIGN KEY (fk_employee)
     REFERENCES employee_tbl (id)
 );
 
