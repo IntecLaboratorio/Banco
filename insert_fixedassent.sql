@@ -8,6 +8,7 @@ SELECT * FROM address_tbl;
 
 SELECT * FROM instruction_tbl;
 SELECT * FROM users_tbl;
+select name_user, email, fk_typeUser from users_tbl where senha = "Gusta132@brabo." and email = "gustavowustemberg@lendadoback.com.br";
 
 SELECT * FROM labs_tbl;
 

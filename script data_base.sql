@@ -474,3 +474,17 @@ CREATE TABLE educationHubHasInstruction_tbl (
     FOREIGN KEY (fk_instruction)
     REFERENCES instruction_tbl (id)
 );
+
+CREATE TABLE userAddress_tbl (
+  id INT NOT NULL AUTO_INCREMENT,
+  type_address VARCHAR(10) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  number_address INT NOT NULL,
+  complement VARCHAR(100) NULL,
+  neighborhood VARCHAR(45) NOT NULL,
+  city VARCHAR(45) NOT NULL,
+  state CHAR(2) NOT NULL,
+  zip_code VARCHAR(10) NOT NULL,
+  userCpf VARCHAR(15) NOT NULL UNIQUE,
+  PRIMARY KEY (`id`)
+  );
