@@ -488,3 +488,18 @@ CREATE TABLE userAddress_tbl (
   userCpf VARCHAR(15) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
   );
+  
+  CREATE TABLE reqlab_tbl (
+	id INT NOT NULL AUTO_INCREMENT,
+    fk_discipline INT,
+    bloco_aula VARCHAR(45),
+    periodo VARCHAR(45),
+    data_req DATE,
+  
+  PRIMARY KEY (id),
+  
+  CONSTRAINT fk_discipline_tbl 
+	FOREIGN KEY (fk_discipline)
+	REFERENCES schoolSubject_tbl (id)
+  );
+  
