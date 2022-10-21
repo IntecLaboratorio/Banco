@@ -495,6 +495,7 @@ CREATE TABLE userAddress_tbl (
     bloco_aula VARCHAR(45),
     periodo VARCHAR(45),
     data_req DATE,
+    verify boolean,
   
   PRIMARY KEY (id),
   
@@ -502,4 +503,3 @@ CREATE TABLE userAddress_tbl (
 	FOREIGN KEY (fk_discipline)
 	REFERENCES schoolSubject_tbl (id)
   );
-  
