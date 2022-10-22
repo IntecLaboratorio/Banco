@@ -493,7 +493,7 @@ CREATE TABLE userAddress_tbl (
 	id INT NOT NULL AUTO_INCREMENT,
     fk_discipline INT,
     bloco_aula VARCHAR(45), -- session
-    periodo VARCHAR(45),
+    periodo VARCHAR(45), -- period
     data_req DATE,
     verify boolean,
   
