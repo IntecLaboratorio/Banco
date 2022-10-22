@@ -175,7 +175,7 @@ CREATE TABLE courses_tbl (
 -- tabela das disciplinas escolares --
 CREATE TABLE schoolSubject_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  name_school_subjetc VARCHAR(45) NOT NULL,
+  name_school_subject VARCHAR(45) NOT NULL,
   abbreviation VARCHAR(5) NOT NULL,
   SchoolModule INT NOT NULL,
   PRIMARY KEY (id)
@@ -221,50 +221,50 @@ CREATE TABLE labsRequirement_tbl (
 
 
 -- tabela de reserva da quadra -- 
-CREATE TABLE appointmentSquare_tbl (
-  id INT NOT NULL AUTO_INCREMENT,
-  date_required VARCHAR(45) NOT NULL,
-  inital_time VARCHAR(45) NOT NULL,
-  final_time VARCHAR(45) NOT NULL,
-  PRIMARY KEY (id)
-);
+-- CREATE TABLE appointmentSquare_tbl (
+--   id INT NOT NULL AUTO_INCREMENT,
+--   date_required VARCHAR(45) NOT NULL,
+--   inital_time VARCHAR(45) NOT NULL,
+--   final_time VARCHAR(45) NOT NULL,
+--   PRIMARY KEY (id)
+-- );
 
 
 -- tabela de alunos tem agendamento de quarda --
-CREATE TABLE studentsHasAppoitmentSquare_tbl(
-  fk_student INT NOT NULL,
-  fk_scheduling INT NOT NULL,
-  status TINYINT NOT NULL,
-  
-  PRIMARY KEY (fk_student, fk_scheduling),
-  
-  CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl_students_tbl
-    FOREIGN KEY (fk_student)
-    REFERENCES students_tbl (id),
-  
-  CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl #maybe I need to use this_AgendamentosQuadra_t1
-    FOREIGN KEY (fk_scheduling)
-    REFERENCES appointmentSquare_tbl (id)
-    );
+-- CREATE TABLE studentsHasAppoitmentSquare_tbl(
+--   fk_student INT NOT NULL,
+--   fk_scheduling INT NOT NULL,
+--   status TINYINT NOT NULL,
+--   
+--   PRIMARY KEY (fk_student, fk_scheduling),
+--   
+--   CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl_students_tbl
+--     FOREIGN KEY (fk_student)
+--     REFERENCES students_tbl (id),
+--   
+--   CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl #maybe I need to use this_AgendamentosQuadra_t1
+--     FOREIGN KEY (fk_scheduling)
+--     REFERENCES appointmentSquare_tbl (id)
+--     );
 
 
 
 -- tabela de professores tem agendamento de quadra --
-CREATE TABLE teacherHasAppoinmetSquare_tbl (
-  fk_teachers INT NOT NULL,
-  fk_scheduling INT NOT NULL,
-  status VARCHAR(45) NULL,
-  
-  PRIMARY KEY (fk_teachers, fk_scheduling),
-  
-  CONSTRAINT fk_teachers_tbl_has_AppoinmetSquare_tbl_teachers_tbl
-    FOREIGN KEY (fk_teachers)
-    REFERENCES employee_tbl (id),
- 
- CONSTRAINT fk_teacher_tbl_has_appoinmetSquare_tbl #_AgendamentosQua
-    FOREIGN KEY (fk_scheduling)
-    REFERENCES appointmentSquare_tbl (id)
-    );
+-- CREATE TABLE teacherHasAppoinmetSquare_tbl (
+--   fk_teachers INT NOT NULL,
+--   fk_scheduling INT NOT NULL,
+--   status VARCHAR(45) NULL,
+--   
+--   PRIMARY KEY (fk_teachers, fk_scheduling),
+--   
+--   CONSTRAINT fk_teachers_tbl_has_AppoinmetSquare_tbl_teachers_tbl
+--     FOREIGN KEY (fk_teachers)
+--     REFERENCES employee_tbl (id),
+--  
+--  CONSTRAINT fk_teacher_tbl_has_appoinmetSquare_tbl #_AgendamentosQua
+--     FOREIGN KEY (fk_scheduling)
+--     REFERENCES appointmentSquare_tbl (id)
+--     );
 
 
 -- tabela solicitação de armário escolar -- 
@@ -291,14 +291,14 @@ CREATE TABLE maintananceRequerement_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   requerement_date DATE NOT NULL,
   observation TEXT NOT NULL,
-  fk_fixed_assent VARCHAR(6),
+ --  fk_fixed_assent VARCHAR(6),
   fk_employee INT NOT NULL,
   
   PRIMARY KEY (id),
   
-  CONSTRAINT fk_maintananceRequerement_tbl_assent_tbl
-    FOREIGN KEY (fk_fixed_assent)
-    REFERENCES fixedAssent_tbl (id),
+--   CONSTRAINT fk_maintananceRequerement_tbl_assent_tbl
+--     FOREIGN KEY (fk_fixed_assent)
+--     REFERENCES fixedAssent_tbl (id),
     
   CONSTRAINT fk_maintananceRequerement_tbl_teachers_tbl
     FOREIGN KEY (fk_employee)
@@ -492,7 +492,7 @@ CREATE TABLE userAddress_tbl (
   CREATE TABLE reqlab_tbl (
 	id INT NOT NULL AUTO_INCREMENT,
     fk_discipline INT,
-    bloco_aula VARCHAR(45),
+    bloco_aula VARCHAR(45), -- session
     periodo VARCHAR(45),
     data_req DATE,
   
