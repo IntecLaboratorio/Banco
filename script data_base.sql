@@ -196,28 +196,21 @@ CREATE TABLE students_tbl (
 
 
 -- tabela de agendamento de laboratório -- 
-CREATE TABLE labsRequirement_tbl (
-  id INT NOT NULL AUTO_INCREMENT,
-  fk_teacher INT NOT NULL,
-  fk_labs INT NOT NULL,
-  fk_discipline INT NOT NULL,
-  date_required DATE NOT NULL,
-  inital_time VARCHAR(45) NOT NULL,
-  final_time VARCHAR(45) NOT NULL,
-  
+  CREATE TABLE reqlab_tbl (
+	id INT NOT NULL AUTO_INCREMENT,
+    fk_discipline INT,
+    bloco_aula VARCHAR(45), -- session
+    periodo VARCHAR(45), -- period
+    data_req DATE,
+    verify boolean,
+
   PRIMARY KEY (id),
-  CONSTRAINT fk_labsRequirement_tbl_teachers_tbl
-    FOREIGN KEY (fk_teacher)
-    REFERENCES employee_tbl (id),
-    
-  CONSTRAINT fk_labsRequirement_tbl_Labs_tbl
-    FOREIGN KEY (fk_labs)
-    REFERENCES labs_tbl (id),
-    
-  CONSTRAINT fk_labsRequirement_tbl_schoolSubject_tbl
-    FOREIGN KEY (fk_discipline)
-    REFERENCES schoolSubject_tbl (id)
-);
+  
+  CONSTRAINT fk_discipline_tbl 
+	FOREIGN KEY (fk_discipline)
+	REFERENCES schoolSubject_tbl (id)
+  );
+  
 
 
 -- tabela de reserva da quadra -- 
@@ -489,17 +482,3 @@ CREATE TABLE userAddress_tbl (
   PRIMARY KEY (`id`)
   );
   
-  CREATE TABLE reqlab_tbl (
-	id INT NOT NULL AUTO_INCREMENT,
-    fk_discipline INT,
-    bloco_aula VARCHAR(45), -- session
-    periodo VARCHAR(45), -- period
-    data_req DATE,
-    verify boolean,
-  
-  PRIMARY KEY (id),
-  
-  CONSTRAINT fk_discipline_tbl 
-	FOREIGN KEY (fk_discipline)
-	REFERENCES schoolSubject_tbl (id)
-  );
