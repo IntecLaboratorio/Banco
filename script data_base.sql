@@ -3,6 +3,7 @@ CREATE DATABASE tcc;
 USE tcc;
 
 
+
 -- tabela de endereço -- 
 CREATE TABLE address_tbl (
   id INT NOT NULL AUTO_INCREMENT,
@@ -16,6 +17,8 @@ CREATE TABLE address_tbl (
   zip_code VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`)
   );
+  
+
 
 
 -- tabela de instituição --
@@ -33,13 +36,14 @@ CREATE TABLE Instruction_tbl (
     REFERENCES address_tbl (`id`)
 );
 
+ 
+
 -- Tipo de usuário --
 CREATE TABLE typeUser_tbl(
 	id INT PRIMARY KEY auto_increment,
     type_name VARCHAR(45) NOT NULL
 );
-
-
+ 
 -- tabela de usuários -- 
 CREATE TABLE users_tbl (
   id INT NOT NULL AUTO_INCREMENT,
@@ -53,6 +57,7 @@ CREATE TABLE users_tbl (
   email VARCHAR(45) NOT NULL UNIQUE,
   senha VARCHAR(45) NOT NULL,
   verify TINYINT NOT NULL,
+  firstAccess BOOLEAN,
   
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
@@ -67,6 +72,7 @@ CREATE TABLE users_tbl (
 		FOREIGN KEY (fk_typeUser)
 		REFERENCES typeUser_tbl (id)
 );
+
 
 
 -- tabela de funcionários -- 
