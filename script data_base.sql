@@ -7,6 +7,7 @@ USE tcc;
 -- tabela de endereço -- 
  CREATE TABLE address_tbl (
   id INT NOT NULL AUTO_INCREMENT,
+  address VARCHAR(100) NOT NULL,
   type_address VARCHAR(10) NOT NULL,
   number_address INT NOT NULL,
   complement VARCHAR(100) NULL,
