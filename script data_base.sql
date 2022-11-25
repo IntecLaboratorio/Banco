@@ -2,13 +2,12 @@ CREATE DATABASE tcc;
 
 USE tcc;
 
-
+-- select * from users_tbl;
 
 -- tabela de endereço -- 
-CREATE TABLE address_tbl (
+ CREATE TABLE address_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   type_address VARCHAR(10) NOT NULL,
-  address VARCHAR(255) NOT NULL,
   number_address INT NOT NULL,
   complement VARCHAR(100) NULL,
   neighborhood VARCHAR(45) NOT NULL,
@@ -17,9 +16,8 @@ CREATE TABLE address_tbl (
   zip_code VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`)
   );
-  
-
-
+-- INSERT INTO address_tbl(type_address, address, number_address, complement, neighborhood, city, state, zip_code) 
+-- VALUES('a','a',1,'a','a','a','a','a');
 
 -- tabela de instituição --
 CREATE TABLE Instruction_tbl (
@@ -35,20 +33,23 @@ CREATE TABLE Instruction_tbl (
     FOREIGN KEY (`fk_address`)
     REFERENCES address_tbl (`id`)
 );
+-- INSERT INTO Instruction_tbl(fk_address, corporate_name, cnpj, phone, email, responsable) 
+-- VALUES(1,'etec','a',1111111,'a@.com','a');
 
- 
+##select senha from user_tbl where email = 'souzamateus18@gmail.com';
 
 -- Tipo de usuário --
 CREATE TABLE typeUser_tbl(
 	id INT PRIMARY KEY auto_increment,
     type_name VARCHAR(45) NOT NULL
 );
- 
+-- INSERT INTO typeUser_tbl(type_name) 
+-- VALUES("coordenador"), ("Professor"), ("Aluno");
+
 -- tabela de usuários -- 
 CREATE TABLE users_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   fk_id_corporate INT NOT NULL,
-  fk_address INT NOT NULL,
   name_user VARCHAR(45) NOT NULL,
   fk_typeUser INT NOT NULL,
   cpf VARCHAR(15) NOT NULL UNIQUE,
@@ -57,23 +58,19 @@ CREATE TABLE users_tbl (
   email VARCHAR(45) NOT NULL UNIQUE,
   senha VARCHAR(45) NOT NULL,
   verify TINYINT NOT NULL,
-  firstAccess BOOLEAN,
+  firstAccess boolean,
   
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
     FOREIGN KEY (fk_id_corporate)
     REFERENCES instruction_tbl(id),
-  
-  CONSTRAINT fk_users_tbl_address_tbl
-    FOREIGN KEY (fk_address)
-    REFERENCES address_tbl (id),
     
 	CONSTRAINT fk_typeUser
 		FOREIGN KEY (fk_typeUser)
 		REFERENCES typeUser_tbl (id)
 );
 
-
+-- select * from users_tbl;
 
 -- tabela de funcionários -- 
 CREATE TABLE employee_tbl (
@@ -181,7 +178,7 @@ CREATE TABLE courses_tbl (
 -- tabela das disciplinas escolares --
 CREATE TABLE schoolSubject_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  name_school_subject VARCHAR(45) NOT NULL,
+  name_school_subjetc VARCHAR(45) NOT NULL,
   abbreviation VARCHAR(5) NOT NULL,
   SchoolModule INT NOT NULL,
   PRIMARY KEY (id)
@@ -202,68 +199,75 @@ CREATE TABLE students_tbl (
 
 
 -- tabela de agendamento de laboratório -- 
-  CREATE TABLE reqlab_tbl (
-	id INT NOT NULL AUTO_INCREMENT,
-    fk_discipline INT,
-    bloco_aula VARCHAR(45), -- session
-    periodo VARCHAR(45), -- period
-    data_req DATE,
-    verify boolean,
-
+CREATE TABLE labsRequirement_tbl (
+  id INT NOT NULL AUTO_INCREMENT,
+  fk_teacher INT NOT NULL,
+  fk_labs INT NOT NULL,
+  fk_discipline INT NOT NULL,
+  date_required DATE NOT NULL,
+  inital_time VARCHAR(45) NOT NULL,
+  final_time VARCHAR(45) NOT NULL,
+  
   PRIMARY KEY (id),
-  
-  CONSTRAINT fk_discipline_tbl 
-	FOREIGN KEY (fk_discipline)
-	REFERENCES schoolSubject_tbl (id)
-  );
-  
+  CONSTRAINT fk_labsRequirement_tbl_teachers_tbl
+    FOREIGN KEY (fk_teacher)
+    REFERENCES employee_tbl (id),
+    
+  CONSTRAINT fk_labsRequirement_tbl_Labs_tbl
+    FOREIGN KEY (fk_labs)
+    REFERENCES labs_tbl (id),
+    
+  CONSTRAINT fk_labsRequirement_tbl_schoolSubject_tbl
+    FOREIGN KEY (fk_discipline)
+    REFERENCES schoolSubject_tbl (id)
+);
 
 
 -- tabela de reserva da quadra -- 
--- CREATE TABLE appointmentSquare_tbl (
---   id INT NOT NULL AUTO_INCREMENT,
---   date_required VARCHAR(45) NOT NULL,
---   inital_time VARCHAR(45) NOT NULL,
---   final_time VARCHAR(45) NOT NULL,
---   PRIMARY KEY (id)
--- );
+CREATE TABLE appointmentSquare_tbl (
+  id INT NOT NULL AUTO_INCREMENT,
+  date_required VARCHAR(45) NOT NULL,
+  inital_time VARCHAR(45) NOT NULL,
+  final_time VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id)
+);
 
 
 -- tabela de alunos tem agendamento de quarda --
--- CREATE TABLE studentsHasAppoitmentSquare_tbl(
---   fk_student INT NOT NULL,
---   fk_scheduling INT NOT NULL,
---   status TINYINT NOT NULL,
---   
---   PRIMARY KEY (fk_student, fk_scheduling),
---   
---   CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl_students_tbl
---     FOREIGN KEY (fk_student)
---     REFERENCES students_tbl (id),
---   
---   CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl #maybe I need to use this_AgendamentosQuadra_t1
---     FOREIGN KEY (fk_scheduling)
---     REFERENCES appointmentSquare_tbl (id)
---     );
+CREATE TABLE studentsHasAppoitmentSquare_tbl(
+  fk_student INT NOT NULL,
+  fk_scheduling INT NOT NULL,
+  status TINYINT NOT NULL,
+  
+  PRIMARY KEY (fk_student, fk_scheduling),
+  
+  CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl_students_tbl
+    FOREIGN KEY (fk_student)
+    REFERENCES students_tbl (id),
+  
+  CONSTRAINT fk_students_tbl_has_appoinmentSquare_tbl #maybe I need to use this_AgendamentosQuadra_t1
+    FOREIGN KEY (fk_scheduling)
+    REFERENCES appointmentSquare_tbl (id)
+    );
 
 
 
 -- tabela de professores tem agendamento de quadra --
--- CREATE TABLE teacherHasAppoinmetSquare_tbl (
---   fk_teachers INT NOT NULL,
---   fk_scheduling INT NOT NULL,
---   status VARCHAR(45) NULL,
---   
---   PRIMARY KEY (fk_teachers, fk_scheduling),
---   
---   CONSTRAINT fk_teachers_tbl_has_AppoinmetSquare_tbl_teachers_tbl
---     FOREIGN KEY (fk_teachers)
---     REFERENCES employee_tbl (id),
---  
---  CONSTRAINT fk_teacher_tbl_has_appoinmetSquare_tbl #_AgendamentosQua
---     FOREIGN KEY (fk_scheduling)
---     REFERENCES appointmentSquare_tbl (id)
---     );
+CREATE TABLE teacherHasAppoinmetSquare_tbl (
+  fk_teachers INT NOT NULL,
+  fk_scheduling INT NOT NULL,
+  status VARCHAR(45) NULL,
+  
+  PRIMARY KEY (fk_teachers, fk_scheduling),
+  
+  CONSTRAINT fk_teachers_tbl_has_AppoinmetSquare_tbl_teachers_tbl
+    FOREIGN KEY (fk_teachers)
+    REFERENCES employee_tbl (id),
+ 
+ CONSTRAINT fk_teacher_tbl_has_appoinmetSquare_tbl #_AgendamentosQua
+    FOREIGN KEY (fk_scheduling)
+    REFERENCES appointmentSquare_tbl (id)
+    );
 
 
 -- tabela solicitação de armário escolar -- 
@@ -288,20 +292,14 @@ CREATE TABLE requirementSchoolLocker_tbl (
 -- Tabela de solicitação de manutenção --
 CREATE TABLE maintananceRequerement_tbl (
   id INT NOT NULL AUTO_INCREMENT,
+  type_assent VARCHAR(45) NOT NULL,
+  room VARCHAR(45) NOT NULL,
+  num_room VARCHAR(2) NOT NULL,
   requerement_date DATE NOT NULL,
   observation TEXT NOT NULL,
- --  fk_fixed_assent VARCHAR(6),
-  fk_employee INT NOT NULL,
+  num_assent VARCHAR(6),
   
-  PRIMARY KEY (id),
-  
---   CONSTRAINT fk_maintananceRequerement_tbl_assent_tbl
---     FOREIGN KEY (fk_fixed_assent)
---     REFERENCES fixedAssent_tbl (id),
-    
-  CONSTRAINT fk_maintananceRequerement_tbl_teachers_tbl
-    FOREIGN KEY (fk_employee)
-    REFERENCES employee_tbl (id)
+  PRIMARY KEY (id)
 );
 
 
@@ -486,5 +484,19 @@ CREATE TABLE userAddress_tbl (
   zip_code VARCHAR(10) NOT NULL,
   userCpf VARCHAR(15) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
+  );
+  
+  CREATE TABLE reqlab_tbl (
+	id INT NOT NULL AUTO_INCREMENT,
+    fk_discipline INT,
+    bloco_aula VARCHAR(45),
+    periodo VARCHAR(45),
+    data_req DATE,
+  
+  PRIMARY KEY (id),
+  
+  CONSTRAINT fk_discipline_tbl 
+	FOREIGN KEY (fk_discipline)
+	REFERENCES schoolSubject_tbl (id)
   );
   
