@@ -4,35 +4,16 @@ USE tcc;
 
 -- select * from users_tbl;
 
--- tabela de endereço -- 
- CREATE TABLE address_tbl (
-  id INT NOT NULL AUTO_INCREMENT,
-  address VARCHAR(100) NOT NULL,
-  type_address VARCHAR(10) NOT NULL,
-  number_address INT NOT NULL,
-  complement VARCHAR(100) NULL,
-  neighborhood VARCHAR(45) NOT NULL,
-  city VARCHAR(45) NOT NULL,
-  state CHAR(2) NOT NULL,
-  zip_code VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`id`)
-  );
--- INSERT INTO address_tbl(type_address, address, number_address, complement, neighborhood, city, state, zip_code) 
--- VALUES('a','a',1,'a','a','a','a','a');
-
 -- tabela de instituição --
 CREATE TABLE Instruction_tbl (
   id INT NOT NULL AUTO_INCREMENT,
-  fk_address INT NOT NULL,
   corporate_name VARCHAR(45) NOT NULL UNIQUE,
   cnpj VARCHAR(19) NOT NULL UNIQUE,
   phone VARCHAR(45) NOT NULL UNIQUE,
   email VARCHAR(45) NOT NULL UNIQUE,
   responsable VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT fk_instruction_tbl_address_tbl
-    FOREIGN KEY (`fk_address`)
-    REFERENCES address_tbl (`id`)
+  
+  PRIMARY KEY (`id`)
 );
 -- INSERT INTO Instruction_tbl(fk_address, corporate_name, cnpj, phone, email, responsable) 
 -- VALUES(1,'etec','a',1111111,'a@.com','a');
@@ -53,9 +34,6 @@ CREATE TABLE users_tbl (
   fk_id_corporate INT NOT NULL,
   name_user VARCHAR(45) NOT NULL,
   fk_typeUser INT NOT NULL,
-  cpf VARCHAR(15) NOT NULL UNIQUE,
-  rg VARCHAR(12) NOT NULL UNIQUE,
-  phone VARCHAR(20) NOT NULL,
   email VARCHAR(45) NOT NULL UNIQUE,
   senha VARCHAR(45) NOT NULL,
   verify TINYINT NOT NULL,
@@ -71,7 +49,7 @@ CREATE TABLE users_tbl (
 		REFERENCES typeUser_tbl (id)
 );
 
--- select * from users_tbl;
+select * from users_tbl;
 
 -- tabela de funcionários -- 
 CREATE TABLE employee_tbl (
