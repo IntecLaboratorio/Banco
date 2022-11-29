@@ -136,7 +136,6 @@ CREATE TABLE educationHub_tbl (
 CREATE TABLE courses_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   fk_instruction INT NOT NULL,
-  fk_type_hub INT NOT NULL,
   name_course VARCHAR(45) NOT NULL,
   course_time VARCHAR(45) NOT NULL,
   initial_date DATE NOT NULL,
@@ -146,11 +145,7 @@ CREATE TABLE courses_tbl (
   
   CONSTRAINT fk_Cursos_tbl_Instituicao_tbl
     FOREIGN KEY (fk_instruction)
-    REFERENCES instruction_tbl (id),
-    
-  CONSTRAINT fk_Courses_tbl_EixoTecnologico_tbl
-    FOREIGN KEY (fk_type_hub)
-    REFERENCES educationHub_tbl (id)
+    REFERENCES instruction_tbl (id)
 );
 
 
@@ -471,6 +466,7 @@ CREATE TABLE userAddress_tbl (
     bloco_aula VARCHAR(45),
     periodo VARCHAR(45),
     data_req DATE,
+    verify boolean,
   
   PRIMARY KEY (id),
   
