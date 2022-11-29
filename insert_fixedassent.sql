@@ -13,7 +13,7 @@ select * from reqlab_tbl;
 
 SELECT * FROM labs_tbl;
 
-INSERT INTO address_tbl (type_address, number_address, complement, neighborhood, city, state, zip_code)
+INSERT INTO address_tbl (type_address, address, number_address, complement, neighborhood, city, state, zip_code)
 VALUES (
 	"", "Rua Pam", 1002, "", "JD. São Marcos", "Itapecerica da Serra", "SP", 06267966
 );
