@@ -34,8 +34,8 @@ CREATE TABLE Instruction_tbl (
     FOREIGN KEY (`fk_address`)
     REFERENCES address_tbl (`id`)
 );
--- INSERT INTO Instruction_tbl(fk_address, corporate_name, cnpj, phone, email, responsable) 
--- VALUES(1,'etec','a',1111111,'a@.com','a');
+INSERT INTO Instruction_tbl(fk_address, corporate_name, cnpj, phone, email, responsable) 
+VALUES(1,'etec','a',1111111,'a@.com','a');
 
 ##select senha from user_tbl where email = 'souzamateus18@gmail.com';
 
@@ -61,7 +61,7 @@ CREATE TABLE users_tbl (
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
     FOREIGN KEY (fk_id_corporate)
-    REFERENCES instruction_tbl(id),
+    REFERENCES instrucation_tbl(id),
     
 	CONSTRAINT fk_typeUser
 		FOREIGN KEY (fk_typeUser)
@@ -282,6 +282,13 @@ CREATE TABLE requirementSchoolLocker_tbl (
     );
 
 
+CREATE TABLE statusManutencao_tbl (
+	id INT NOT NULL auto_increment,
+    status_manutencao VARCHAR(45),
+    PRIMARY KEY(id)
+);
+
+
 -- Tabela de solicitação de manutenção --
 CREATE TABLE maintananceRequerement_tbl (
   id INT NOT NULL AUTO_INCREMENT,
@@ -291,10 +298,19 @@ CREATE TABLE maintananceRequerement_tbl (
   requerement_date DATE NOT NULL,
   observation TEXT NOT NULL,
   num_assent VARCHAR(6),
+  whatWasDone TEXT NOT NULL,
+  fk_status_manutencao INT NOT NULL,
+  user_req VARCHAR(100),
+  user_fin VARCHAR(100),
+  data_abertura DATETIME,
+  data_fechamento DATETIME,
   
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  
+  CONSTRAINT fk_status_manutencao
+    FOREIGN KEY (fk_status_manutencao)
+    REFERENCES statusManutencao_tbl (id)
 );
-
 
 -- tabela de histórico de manuetenção --
 CREATE TABLE maintananceSchedule_tbl (

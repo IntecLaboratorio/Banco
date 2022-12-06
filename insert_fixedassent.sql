@@ -11,6 +11,8 @@ SELECT * FROM users_tbl;
 
 select * from reqlab_tbl;
 
+select * from maintananceRequerement_tbl;
+
 SELECT * FROM labs_tbl;
 
 INSERT INTO address_tbl (type_address, address, number_address, complement, neighborhood, city, state, zip_code)
@@ -19,8 +21,14 @@ VALUES (
 );
 
 INSERT INTO typeUser_tbl (type_name)
-VALUES ("Coordenador"),
+VALUES ("Admin"),
+	   ("Coordenador"),
 	   ("Professor"),
        ("Alunos")
 ;
+INSERT INTO statusManutencao_tbl (status_manutencao)
+VALUES ("Em Manutenção"),
+	   ("Manutenção Realizada")
+;
 select * from typeUser_tbl;
+select * from statusManutencao_tbl;
