@@ -15,8 +15,8 @@ CREATE TABLE Instruction_tbl (
   
   PRIMARY KEY (`id`)
 );
-INSERT INTO Instruction_tbl(fk_address, corporate_name, cnpj, phone, email, responsable) 
-VALUES(1,'etec','a',1111111,'a@.com','a');
+#INSERT INTO Instruction_tbl(corporate_name, cnpj, phone, email, responsable) 
+#VALUES('Etec Embu','a',1111111,'a@.com','a');
 
 ##select senha from user_tbl where email = 'souzamateus18@gmail.com';
 
@@ -42,14 +42,14 @@ CREATE TABLE users_tbl (
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
     FOREIGN KEY (fk_id_corporate)
-    REFERENCES instrucation_tbl(id),
+    REFERENCES Instruction_tbl(id),
     
-	CONSTRAINT fk_typeUser
+    CONSTRAINT fk_typeUser
 		FOREIGN KEY (fk_typeUser)
-		REFERENCES typeUser_tbl (id)
+        REFERENCES typeUser_tbl(id)
 );
 
-select * from users_tbl;
+#select * from users_tbl;
 
 -- tabela de funcionários -- 
 CREATE TABLE employee_tbl (
