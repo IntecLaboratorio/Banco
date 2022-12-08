@@ -2,7 +2,7 @@ CREATE DATABASE tcc;
 
 USE tcc;
 
--- select * from users_tbl;
+ -- select * from users_tbl;
 
 -- tabela de instituição --
 CREATE TABLE Instruction_tbl (
@@ -16,15 +16,12 @@ CREATE TABLE Instruction_tbl (
   PRIMARY KEY (`id`)
 );
 
-
-
 -- Tipo de usuário --
 CREATE TABLE typeUser_tbl(
 	id INT PRIMARY KEY auto_increment,
     type_name VARCHAR(45) NOT NULL
 );
--- INSERT INTO typeUser_tbl(type_name) 
--- VALUES("coordenador"), ("Professor"), ("Aluno");
+
 
 -- tabela de usuários -- 
 CREATE TABLE users_tbl (
@@ -40,15 +37,14 @@ CREATE TABLE users_tbl (
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
     FOREIGN KEY (fk_id_corporate)
-
-    REFERENCES instruction_tbl(id),
-
+    REFERENCES Instruction_tbl(id),
     
     CONSTRAINT fk_typeUser
 		FOREIGN KEY (fk_typeUser)
         REFERENCES typeUser_tbl(id)
 );
 
+#select * from users_tbl;
 
 -- tabela de funcionários -- 
 CREATE TABLE employee_tbl (
@@ -157,8 +153,6 @@ CREATE TABLE schoolSubject_tbl (
   PRIMARY KEY (id)
 );
 
-
-select * from schoolSubject_tbl;
 
 -- tabela de alunos -- 
 CREATE TABLE students_tbl (
@@ -477,21 +471,22 @@ CREATE TABLE userAddress_tbl (
   PRIMARY KEY (`id`)
   );
   
-CREATE TABLE status_reqlab_tbl(
+  
+  CREATE TABLE status_reqlab_tbl(
 	id INT NOT NULL AUTO_INCREMENT,
     status_reqlab VARCHAR(45),
     
     PRIMARY KEY (id)
 );
-  
+
   INSERT INTO status_reqlab_tbl (status_reqlab) VALUES ("Aberto"),
   ("Aceito"),
   ("Negado");
   
-  
-  CREATE TABLE reqlab_tbl (
+CREATE TABLE reqlab_tbl (
 	id INT NOT NULL AUTO_INCREMENT,
     fk_discipline INT,
+    lab VARCHAR(50) NOT NULL,
     bloco_aula VARCHAR(45),
     periodo VARCHAR(45),
     data_req DATE,
@@ -513,6 +508,4 @@ CREATE TABLE status_reqlab_tbl(
     
   );
   
-  select * from schoolSubject_tbl;
   
-select * from reqlab_tbl;
