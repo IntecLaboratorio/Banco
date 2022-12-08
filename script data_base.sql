@@ -40,11 +40,13 @@ CREATE TABLE users_tbl (
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
     FOREIGN KEY (fk_id_corporate)
+
     REFERENCES instruction_tbl(id),
+
     
-	CONSTRAINT fk_typeUser
+    CONSTRAINT fk_typeUser
 		FOREIGN KEY (fk_typeUser)
-		REFERENCES typeUser_tbl (id)
+        REFERENCES typeUser_tbl(id)
 );
 
 
