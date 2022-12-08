@@ -15,10 +15,8 @@ CREATE TABLE Instruction_tbl (
   
   PRIMARY KEY (`id`)
 );
-INSERT INTO Instruction_tbl(fk_address, corporate_name, cnpj, phone, email, responsable) 
-VALUES(1,'etec','a',1111111,'a@.com','a');
 
-##select senha from user_tbl where email = 'souzamateus18@gmail.com';
+
 
 -- Tipo de usuário --
 CREATE TABLE typeUser_tbl(
@@ -42,14 +40,13 @@ CREATE TABLE users_tbl (
   PRIMARY KEY (id),
   CONSTRAINT fk_id_corporate
     FOREIGN KEY (fk_id_corporate)
-    REFERENCES instrucation_tbl(id),
+    REFERENCES instruction_tbl(id),
     
 	CONSTRAINT fk_typeUser
 		FOREIGN KEY (fk_typeUser)
 		REFERENCES typeUser_tbl (id)
 );
 
-select * from users_tbl;
 
 -- tabela de funcionários -- 
 CREATE TABLE employee_tbl (
@@ -153,11 +150,13 @@ CREATE TABLE courses_tbl (
 CREATE TABLE schoolSubject_tbl (
   id INT NOT NULL AUTO_INCREMENT,
   name_school_subjetc VARCHAR(45) NOT NULL,
-  abbreviation VARCHAR(5) NOT NULL,
+  abbreviation VARCHAR(15) NOT NULL,
   SchoolModule INT NOT NULL,
   PRIMARY KEY (id)
 );
 
+
+select * from schoolSubject_tbl;
 
 -- tabela de alunos -- 
 CREATE TABLE students_tbl (
@@ -476,18 +475,42 @@ CREATE TABLE userAddress_tbl (
   PRIMARY KEY (`id`)
   );
   
+CREATE TABLE status_reqlab_tbl(
+	id INT NOT NULL AUTO_INCREMENT,
+    status_reqlab VARCHAR(45),
+    
+    PRIMARY KEY (id)
+);
+  
+  INSERT INTO status_reqlab_tbl (status_reqlab) VALUES ("Aberto"),
+  ("Aceito"),
+  ("Negado");
+  
+  
   CREATE TABLE reqlab_tbl (
 	id INT NOT NULL AUTO_INCREMENT,
     fk_discipline INT,
     bloco_aula VARCHAR(45),
     periodo VARCHAR(45),
     data_req DATE,
-    verify boolean,
+    fk_status_reqLab INT NOT NULL,
+    user_req VARCHAR(100),
+    user_fin VARCHAR(100),
+    data_abertura DATETIME,
+    data_fechamento DATETIME,
   
   PRIMARY KEY (id),
   
   CONSTRAINT fk_discipline_tbl 
 	FOREIGN KEY (fk_discipline)
-	REFERENCES schoolSubject_tbl (id)
+	REFERENCES schoolSubject_tbl (id),
+    
+  CONSTRAINT fk_status_reqLab
+	FOREIGN KEY (fk_status_reqLab)
+    REFERENCES status_reqlab_tbl (id)
+    
   );
   
+  select * from schoolSubject_tbl;
+  
+select * from reqlab_tbl;
